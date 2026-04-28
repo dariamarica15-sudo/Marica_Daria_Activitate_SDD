@@ -31,13 +31,29 @@ void afisare(struct Produs p) {
 	printf("Categorie: %c\n\n", p.categorie);
 }
 
+// Functie pentru afisarea unui vector de produse
+void afisareVector(struct Produs* vector, int nrElemente) {
+	for (int i = 0; i < nrElemente; i++) {
+		afisare(vector[i]);
+	}
+}
+
 // Functie pentru eliberarea memoriei alocate pentru un produs
 int main() {
-	struct Produs p1 = initializare(1, "Laptop", 3500.5, 'A');
+	int nrProduse = 3;
 
-	afisare(p1);
+	struct Produs* prod = (struct Produs*)malloc(sizeof(struct Produs) * nrProduse);
 
-	free(p1.denumire);
+	prod[0] = initializare(1, "Laptop", 3500.00, 'B');
+	prod[1] = initializare(2, "Telefon", 1500.00, 'T');
+	prod[2] = initializare(3, "Tableta", 2000.00, 'S');
 
+	afisareVector(prod, nrProduse);
+
+	for (int i = 0; i < nrProduse; i++) {
+		free(prod[i].denumire);
+	}
+
+	free(prod);
 	return 0;
 }
