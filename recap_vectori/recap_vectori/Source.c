@@ -64,6 +64,42 @@ struct Produs* copiazaPrimeleNElemente(struct Produs* vector, int nrElemente, in
 }
 
 
+// Functie pentru copierea produselor cu pret mai mare decat un prag dat
+void copiazaProduseCuPretMaiMare(struct Produs* vector, int nrElemente, float prag,
+	struct Produs** vectorNou, int* dimensiune) {
+
+	*dimensiune = 0;
+
+	// Parcurgem vectorul pentru a numara cate produse au pretul mai mare decat pragul
+	for (int i = 0; i < nrElemente; i++) {
+		if (vector[i].pret > prag) {
+			(*dimensiune)++;
+		}
+	}
+
+	// Alocam memorie pentru vectorul nou, avand dimensiunea egala cu numarul de produse care indeplinesc conditia
+	*vectorNou = (struct Produs*)malloc(sizeof(struct Produs) * (*dimensiune));
+	
+	int k = 0;
+
+	// Parcurgem din nou vectorul pentru a copia produsele care au pretul mai mare decat pragul in vectorul nou
+	for (int i = 0; i < nrElemente; i++) {
+		// Daca pretul produsului curent este mai mare decat pragul, il copiem in vectorul nou
+		if (vector[i].pret > prag) {
+
+			(*vectorNou)[k].id = vector[i].id;
+
+			(*vectorNou)[k].denumire = (char*)malloc(strlen(vector[i].denumire) + 1);
+			strcpy((*vectorNou)[k].denumire, vector[i].denumire);
+
+			(*vectorNou)[k].pret = vector[i].pret;
+			(*vectorNou)[k].categorie = vector[i].categorie;
+
+			k++;
+		}
+	}
+}
+
 // Functie pentru eliberarea memoriei alocate pentru un produs
 int main() {
 	int nrProduse = 3;
@@ -81,7 +117,15 @@ int main() {
 	printf("Primele 2 produse:\n");
 	afisareVector(primeleDoua, 2);
 	
-	
+	// Copiem produsele cu pret mai mare decat 1800
+	struct Produs* produseScumpe = NULL;
+	int nrProduseScumpe = 0;
+
+	copiazaProduseCuPretMaiMare(prod, nrProduse, 1800, &produseScumpe, &nrProduseScumpe);
+
+	printf("Produse cu pret mai mare decat 1800:\n");
+	afisareVector(produseScumpe, nrProduseScumpe);
+
 	// Eliberam memoria alocata pentru denumiri in vectorul original
 	for (int i = 0; i < nrProduse; i++) {
 		free(prod[i].denumire);
@@ -91,6 +135,13 @@ int main() {
 	for (int i = 0; i < 2; i++) {
 		free(primeleDoua[i].denumire);
 	}
+
+	// Eliberam memoria alocata pentru produsele scumpe copiate
+	for (int i = 0; i < nrProduseScumpe; i++) {
+		free(produseScumpe[i].denumire);
+	}
+
+	free(produseScumpe);
 
 	free(prod);
 	return 0;
