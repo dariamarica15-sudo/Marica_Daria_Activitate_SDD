@@ -20,6 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\..\Downloads\masini.txt" />
+    <Text Include="..\..\masini.txt" />
   </ItemGroup>
 </Project>

@@ -171,10 +171,17 @@ Queue citireCoadaDeMasiniDinFisier(const char* numeFisier) {
 	queue.end = NULL;
 
 	FILE* f = fopen(numeFisier, "r");
+
+	if (f == NULL) {
+		printf("Nu s-a putut deschide fisierul: %s\n", numeFisier);
+		return queue;
+	}
+
 	while (!feof(f)) {
 		Masina masina = citireMasinaDinFisier(f);
 		enqueue(&queue, masina);
 	}
+
 	fclose(f);
 	return queue;
 }
@@ -231,15 +238,15 @@ float calculeazaPretTotal(NodSimplu** stack) {
 	return sum;
 }
 
+
 int main() {
-	Queue queue = citireCoadaDeMasiniDinFisier("masini.txt");
-	/*afisareMasina(dequeue(&queue));
-	afisareMasina(dequeue(&queue));*/
+	Queue queue = citireCoadaDeMasiniDinFisier("C:\\Users\\WINDOWS\\Documents\\visual studio 2022 proiecte\\StructuriDeDate\\masini.txt");
 
 	Masina masina = getMasinaByID(&queue, 9);
 	afisareMasina(masina);
-	free(masina.model);
-	free(masina.numeSofer);
 
-	return 0;
+	if (masina.id != -1) {
+		free(masina.model);
+		free(masina.numeSofer);
+	}
 }
