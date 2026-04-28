@@ -233,7 +233,6 @@ char* getNumeSoferMasinaScumpa(ListaDubla ld) {
     return nume;
 }
 
-
 int main() {
     ListaDubla lista = citireLDMasiniDinFisier(
         "\\Users\\WINDOWS\\Documents\\visual studio 2022 proiecte\\StructuriDeDate\\Seminar04\\Seminar04\\masini.txt"
