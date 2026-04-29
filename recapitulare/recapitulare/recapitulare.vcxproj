@@ -126,7 +126,7 @@
     <ClCompile Include="Source.c" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\personaje.txt.txt" />
+    <Text Include="..\..\..\..\personaje.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

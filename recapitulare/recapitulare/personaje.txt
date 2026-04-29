@@ -1,0 +1,5 @@
+1,Aang,Air,12,100.5,A
+2,Katara,Water,14,85.0,K
+3,Sokka,Non-bender,15,70.0,S
+4,Toph,Earth,12,95.5,T
+5,Zuko,Fire,16,90.0,Z

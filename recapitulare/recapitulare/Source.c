@@ -29,25 +29,57 @@ void afisareVectorTeamAvatar(TeamAvatar* team, int nrMembri) {
 	}
 }
 
-int main() {
+TeamAvatar citireMembruFisier(FILE* file) {
+	char buffer[100];
+	char sep[3] = ",\n";
+	char* aux;
+
 	TeamAvatar membru;
+	membru.id = -1;
 
-	membru.id = 1;
-	membru.varsta = 12;
-	membru.putere = 100.5;
+	if (fgets(buffer, 100, file) == NULL) {
+		return membru;
+	}
 
-	membru.nume = (char*)malloc(strlen("Aang") + 1);
-	strcpy(membru.nume, "Aang");
+	aux = strtok(buffer, sep);
+	membru.id = atoi(aux);
 
-	membru.element = (char*)malloc(strlen("Air") + 1);
-	strcpy(membru.element, "Air");
+	aux = strtok(NULL, sep);
+	membru.nume = (char*)malloc(strlen(aux) + 1);
+	strcpy(membru.nume, aux);
 
-	membru.initiala = 'A';
+	aux = strtok(NULL, sep);
+	membru.element = (char*)malloc(strlen(aux) + 1);
+	strcpy(membru.element, aux);
+
+	aux = strtok(NULL, sep);
+	membru.varsta = atoi(aux);
+
+	aux = strtok(NULL, sep);
+	membru.putere = (float)atof(aux);
+
+	aux = strtok(NULL, sep);
+	membru.initiala = aux[0];
+
+	return membru;
+}
+
+int main() {
+	FILE* f = fopen("personaje.txt", "r");
+
+	if (f == NULL) {
+		printf("Fisierul nu a fost gasit\n");
+		return 0;
+	}
+
+	TeamAvatar membru = citireMembruFisier(f);
 
 	afisareMembruTeamAvatar(membru);
 
 	free(membru.nume);
 	free(membru.element);
+
+	fclose(f);
 
 	return 0;
 }
