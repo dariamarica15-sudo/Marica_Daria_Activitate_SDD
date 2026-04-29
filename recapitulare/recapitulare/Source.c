@@ -64,7 +64,25 @@ TeamAvatar citireMembruFisier(FILE* file) {
 	return membru;
 }
 
+void adaugaMembruInVector(TeamAvatar** team, int* nrMembri, TeamAvatar membruNou) {
+	TeamAvatar* vectorNou = (TeamAvatar*)malloc(sizeof(TeamAvatar) * ((*nrMembri) + 1));
+
+	for (int i = 0; i < *nrMembri; i++) {
+		vectorNou[i] = (*team)[i];
+	}
+
+	vectorNou[*nrMembri] = membruNou;
+
+	free(*team);
+
+	*team = vectorNou;
+	(*nrMembri)++;
+}
+
 int main() {
+	TeamAvatar* team = NULL;
+	int nrMembri = 0;
+
 	FILE* f = fopen("personaje.txt", "r");
 
 	if (f == NULL) {
@@ -74,10 +92,13 @@ int main() {
 
 	TeamAvatar membru = citireMembruFisier(f);
 
-	afisareMembruTeamAvatar(membru);
+	adaugaMembruInVector(&team, &nrMembri, membru);
 
-	free(membru.nume);
-	free(membru.element);
+	afisareVectorTeamAvatar(team, nrMembri);
+
+	free(team[0].nume);
+	free(team[0].element);
+	free(team);
 
 	fclose(f);
 
