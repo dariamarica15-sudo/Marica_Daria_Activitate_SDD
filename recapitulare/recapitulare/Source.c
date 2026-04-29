@@ -79,28 +79,47 @@ void adaugaMembruInVector(TeamAvatar** team, int* nrMembri, TeamAvatar membruNou
 	(*nrMembri)++;
 }
 
+TeamAvatar* citireVectorTeamAvatarFisier(const char* numeFisier, int* nrMembriCititi) {
+
+	FILE* f = fopen(numeFisier, "r");
+
+	if (f == NULL) {
+		printf("Fisierul nu a fost gasit\n");
+		return NULL;
+	}
+
+	TeamAvatar* team = NULL;
+
+	while (!feof(f)) {
+
+		TeamAvatar membru = citireMembruFisier(f);
+
+		if (membru.id != -1) {
+			adaugaMembruInVector(&team, nrMembriCititi, membru);
+		}
+	}
+
+	fclose(f);
+
+	return team;
+}
+
 int main() {
 	TeamAvatar* team = NULL;
 	int nrMembri = 0;
 
-	FILE* f = fopen("personaje.txt", "r");
-
-	if (f == NULL) {
-		printf("Fisierul nu a fost gasit\n");
-		return 0;
-	}
-
-	TeamAvatar membru = citireMembruFisier(f);
-
-	adaugaMembruInVector(&team, &nrMembri, membru);
+	team = citireVectorTeamAvatarFisier("personaje.txt", &nrMembri);
 
 	afisareVectorTeamAvatar(team, nrMembri);
 
-	free(team[0].nume);
-	free(team[0].element);
+	for (int i = 0; i < nrMembri; i++) {
+		free(team[i].nume);
+		free(team[i].element);
+	}
+
 	free(team);
 
-	fclose(f);
+	return 0;
 
 	return 0;
 }
