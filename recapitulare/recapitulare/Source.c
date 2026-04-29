@@ -104,6 +104,8 @@ TeamAvatar* citireVectorTeamAvatarFisier(const char* numeFisier, int* nrMembriCi
 	return team;
 }
 
+
+
 int main() {
 	TeamAvatar* team = NULL;
 	int nrMembri = 0;
@@ -118,8 +120,6 @@ int main() {
 	}
 
 	free(team);
-
-	return 0;
 
 	return 0;
 }
