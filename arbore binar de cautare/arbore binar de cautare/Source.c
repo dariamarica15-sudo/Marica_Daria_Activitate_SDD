@@ -79,10 +79,27 @@ void adaugaMasinaInArbore(NodArbore** radacina, Masina masinaNoua) {
 	}
 }
 
-void* citireArboreDeMasiniDinFisier(const char* numeFisier) {
+NodArbore* citireArboreDeMasiniDinFisier(const char* numeFisier) {
 	//functia primeste numele fisierului, il deschide si citeste toate masinile din fisier
 	//prin apelul repetat al functiei citireMasinaDinFisier()
 	//ATENTIE - la final inchidem fisierul/stream-ul
+	NodArbore* arbore = NULL;
+
+	FILE* f = fopen(numeFisier, "r");
+
+	if (f == NULL) {
+		printf("Nu s-a putut deschide fisierul: %s\n", numeFisier);
+		return arbore;
+	}
+
+	while (!feof(f)) {
+		Masina masina = citireMasinaDinFisier(f);
+		adaugaMasinaInArbore(&arbore, masina);
+	}
+
+	fclose(f);
+
+	return arbore;
 }
 
 void afisareMasiniDinArbore(/*arbore de masini*/) {
@@ -124,13 +141,11 @@ float calculeazaPretulMasinilorUnuiSofer(/*arbore de masini*/ const char* numeSo
 }
 
 int main() {
-	NodArbore* arbore = NULL;
+	NodArbore* arbore = citireArboreDeMasiniDinFisier("masini.txt");
 
-	Masina m1 = citireMasinaDinFisier(fopen("masini.txt", "r"));
-
-	adaugaMasinaInArbore(&arbore, m1);
-
-	afisareMasina(arbore->masina);
+	if (arbore != NULL) {
+		afisareMasina(arbore->masina);
+	}
 
 	return 0;
 }
