@@ -1,0 +1,7 @@
+1,2999,Sony,PlayStation5,2020
+2,2399,Microsoft,XboxSeriesX,2020
+3,1499,Nintendo,Switch,2017
+4,3299,Sony,PlayStation5Pro,2024
+5,899,Valve,SteamDeck,2022
+6,1999,Microsoft,XboxSeriesS,2020
+7,2799,Asus,ROGAlly,2023
