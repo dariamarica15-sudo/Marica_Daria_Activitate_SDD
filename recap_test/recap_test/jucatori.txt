@@ -1,0 +1,7 @@
+1,27,Novak Djokovic,Serbia,24
+2,21,Carlos Alcaraz,Spania,5
+3,29,Daniil Medvedev,Rusia,1
+4,24,Jannik Sinner,Italia,3
+5,26,Alexander Zverev,Germania,0
+6,23,Holger Rune,Danemarca,0
+7,33,Grigor Dimitrov,Bulgaria,0
